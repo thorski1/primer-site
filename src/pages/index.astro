@@ -1,0 +1,321 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "The Young Lady's Illustrated Primer",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Linux, macOS, Windows",
+      "typicalAgeRange": "5-12",
+      "educationalLevel": "beginner",
+      "learningResourceType": "game",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "installUrl": "https://pypi.org/project/primer/",
+      "codeRepository": "https://github.com/thorski1/primer",
+      "description": "A terminal adventure for young learners covering phonics, math, science, geography, history, art, and coding — guided by Puck, a glowing companion who lives in the pages.",
+      "screenshot": "https://youngladysprimer.dev/og-primer.png",
+      "keywords": "educational game for kids, terminal game children, phonics game, math game kids, coding for kids, free children educational software",
+      "softwareVersion": "1.0.0",
+      "downloadUrl": "https://pypi.org/project/primer/#files",
+      "creator": { "@type": "Person", "name": "thorski1" },
+    },
+    {
+      "@type": "WebSite",
+      "name": "The Young Lady's Illustrated Primer",
+      "url": "https://youngladysprimer.dev",
+    }
+  ]
+};
+
+const chapters = [
+  { n:1, title:"The Letter Garden",         ages:"5–7",  emoji:"🌸", desc:"Phonics, vowels, blends, sight words, reading sentences", color:"#b388ff" },
+  { n:2, title:"The Counting Kingdom",      ages:"6–8",  emoji:"👑", desc:"Numbers, addition, subtraction, shapes, time, money",     color:"#f5c842" },
+  { n:3, title:"The World of Wondering",    ages:"7–10", emoji:"🔭", desc:"Living things, weather, the body, simple machines, space",color:"#40c4ff" },
+  { n:4, title:"The Art of Being Kind",     ages:"6+",   emoji:"💛", desc:"Feelings, friendship, listening, handling hard emotions",  color:"#ffcc80" },
+  { n:5, title:"The Atlas of Wonders",      ages:"7–10", emoji:"🌍", desc:"Continents, oceans, capitals, maps, landforms, wonders",  color:"#69f0ae" },
+  { n:6, title:"The Math Academy",          ages:"8–11", emoji:"📐", desc:"Multiplication, division, geometry, decimals, negatives", color:"#ff8a65" },
+  { n:7, title:"The Time Traveler's Primer",ages:"8–11", emoji:"⏳", desc:"Ancient civilizations, explorers, inventors, world leaders",color:"#ce93d8" },
+  { n:8, title:"The Art Studio",            ages:"7–11", emoji:"🎨", desc:"Colors, shapes, famous artwork, art elements, artists",   color:"#ef9a9a" },
+  { n:9, title:"The Code Garden",           ages:"8–12", emoji:"🌱", desc:"What coding is, loops, conditionals, variables, functions",color:"#a5d6a7" },
+];
+---
+
+<BaseLayout
+  title="The Young Lady's Illustrated Primer — Free Educational Terminal Game for Kids Ages 5–12"
+  description="500+ challenges across 9 chapters. Guided by Puck, a glowing companion who teaches phonics, math, science, kindness, geography, history, art, and coding. Free. For curious children everywhere."
+  schema={schema}
+>
+
+<!-- ── Stars background ──────────────────────────────────────────────────────── -->
+<div id="stars" aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+
+<script>
+  // Generate star field
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    const size = Math.random() * 2 + 1;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const delay = Math.random() * 4;
+    const dur = 2 + Math.random() * 3;
+    star.style.cssText = `
+      position:absolute; left:${x}%; top:${y}%;
+      width:${size}px; height:${size}px;
+      border-radius:50%; background:#f5c842;
+      opacity:${0.3 + Math.random() * 0.5};
+      animation: twinkle ${dur}s ${delay}s ease-in-out infinite alternate;
+    `;
+    container.appendChild(star);
+  }
+</script>
+
+<style>
+  @keyframes twinkle {
+    from { opacity: 0.2; transform: scale(0.7); }
+    to   { opacity: 1;   transform: scale(1.3); }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0);    }
+    50%      { transform: translateY(-12px); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to   { background-position:  200% 0; }
+  }
+</style>
+
+<!-- ── Nav ──────────────────────────────────────────────────────────────────── -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(10,22,40,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;">
+  <span style="color:var(--gold);font-weight:700;font-size:1rem;font-family:'Lora',serif;">✦ The Primer</span>
+  <div style="display:flex;gap:2rem;font-size:0.85rem;">
+    <a href="#install" style="color:var(--muted);">Install</a>
+    <a href="#chapters" style="color:var(--muted);">Chapters</a>
+    <a href="#parents" style="color:var(--muted);">For Parents</a>
+    <a href="https://github.com/thorski1/primer" style="color:var(--muted);" target="_blank" rel="noopener" onclick="track('github_click',{location:'nav'})">GitHub</a>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────────────────────── -->
+<section style="position:relative;z-index:1;min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;text-align:center;">
+
+  <!-- Book cover glow -->
+  <div style="position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(245,200,66,0.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+
+  <div style="max-width:800px;position:relative;">
+
+    <!-- Stars decorative -->
+    <div style="font-size:1.2rem;letter-spacing:1rem;margin-bottom:1.5rem;color:var(--gold);opacity:0.7;">
+      *  .  .    *  . * .    *  .    *  .  .  *
+    </div>
+
+    <!-- ASCII art title -->
+    <pre style="color:var(--gold);font-size:clamp(0.45rem,1.6vw,0.85rem);line-height:1.3;text-shadow:0 0 20px rgba(245,200,66,0.4);margin:0 0 1rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;">
+____________ ________  ___ ___________
+| ___ \ ___ \_   _|  \/  ||  ___| ___ \
+| |_/ / |_/ / | | | .  . || |__ | |_/ /
+|  __/|    /  | | | |\/| ||  __||    /
+| |   | |\ \ _| |_| |  | || |___| |\ \
+\_|   \_| \_|\___/\_|  |_/\____/\_| \_|</pre>
+
+    <div style="font-size:1.2rem;margin-bottom:2rem;color:var(--gold);opacity:0.7;">
+      *  .  .    *  . * .    *  .    *  .  .  *
+    </div>
+
+    <!-- Puck introduction -->
+    <div style="display:inline-block;padding:1.5rem 2rem;border:1px solid rgba(179,136,255,0.3);border-radius:12px;background:rgba(15,30,53,0.8);margin-bottom:2rem;max-width:560px;animation:float 6s ease-in-out infinite;">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">✨</div>
+      <p style="font-size:1.1rem;color:var(--puck);font-style:italic;margin:0 0 0.25rem;font-family:'Lora',serif;">"Hello," it says. "My name is Puck.</p>
+      <p style="font-size:1.1rem;color:var(--puck);font-style:italic;margin:0;font-family:'Lora',serif;">And this book — <em>this</em> book — is for you."</p>
+    </div>
+
+    <h1 style="font-size:clamp(1.5rem,4vw,2.4rem);color:#ffffff;font-weight:400;margin:0 0 1rem;line-height:1.3;font-family:'Lora',serif;">
+      A terminal adventure<br/>
+      <span style="color:var(--gold);">for young learners.</span>
+    </h1>
+
+    <p style="font-size:1rem;color:var(--muted);max-width:540px;margin:0 auto 2.5rem;line-height:1.8;">
+      Nine chapters. One companion. A whole world to explore.
+      Phonics, math, science, kindness, geography, history, art, and coding —
+      taught through stories, challenges, and Puck.
+    </p>
+
+    <!-- CTA -->
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="#install"
+         style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;background:var(--gold);color:#0a1628;font-weight:700;font-size:1rem;border-radius:6px;font-family:'Lora',serif;"
+         onclick="track('cta_install_click',{location:'hero'})">
+        Start the Adventure →
+      </a>
+      <a href="https://github.com/thorski1/primer"
+         target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2.2rem;border:1px solid var(--border);color:var(--text);font-size:1rem;border-radius:6px;"
+         onclick="track('github_click',{location:'hero'})">
+        View on GitHub
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;margin-top:3rem;padding-top:3rem;border-top:1px solid var(--border);">
+      {[
+        {n:"500+",   label:"Challenges"},
+        {n:"9",      label:"Chapters"},
+        {n:"Ages 5–12", label:""},
+        {n:"Free",   label:"Forever"},
+      ].map(s => (
+        <div style="text-align:center;">
+          <div style="font-size:1.8rem;font-weight:700;color:var(--gold);font-family:'Lora',serif;">{s.n}</div>
+          {s.label && <div style="font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;">{s.label}</div>}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ── Chapters ──────────────────────────────────────────────────────────────── -->
+<section id="chapters" style="position:relative;z-index:1;padding:5rem 2rem;max-width:1100px;margin:0 auto;">
+  <h2 style="font-size:clamp(1.3rem,3vw,1.8rem);color:var(--gold);text-align:center;margin:0 0 0.5rem;font-family:'Lora',serif;">What's Inside</h2>
+  <p style="text-align:center;color:var(--muted);margin:0 0 3rem;font-size:0.9rem;">Each chapter is a world. Each world has a story. Puck guides the way.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;">
+    {chapters.map(ch => (
+      <div style={`border:1px solid var(--border);border-radius:10px;padding:1.5rem;background:var(--bg-2);transition:transform 0.2s,border-color 0.2s;cursor:default;`}
+           onmouseenter="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(245,200,66,0.3)'"
+           onmouseleave="this.style.transform='';this.style.borderColor='var(--border)'">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+          <span style="font-size:1.75rem;">{ch.emoji}</span>
+          <div>
+            <div style={`color:${ch.color};font-weight:600;font-size:0.95rem;font-family:'Lora',serif;`}>{ch.title}</div>
+            <div style="color:var(--muted);font-size:0.72rem;font-family:'JetBrains Mono',monospace;">Chapter {ch.n} · Ages {ch.ages}</div>
+          </div>
+        </div>
+        <p style="color:var(--muted);font-size:0.83rem;margin:0;line-height:1.6;">{ch.desc}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ── For Parents ───────────────────────────────────────────────────────────── -->
+<section id="parents" style="position:relative;z-index:1;padding:5rem 2rem;background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="max-width:800px;margin:0 auto;">
+    <h2 style="font-size:clamp(1.3rem,3vw,1.8rem);color:var(--gold);margin:0 0 1rem;font-family:'Lora',serif;">For Parents</h2>
+    <p style="font-style:italic;color:var(--muted);margin:0 0 2rem;font-size:0.9rem;line-height:1.6;">
+      Inspired by Neal Stephenson's <em>The Diamond Age</em> — a book that teaches a child everything she needs to know, exactly when she needs it.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;">
+      {[
+        { t:"Short sessions",         d:"Each zone takes 5–15 minutes. Designed for short, focused play — before dinner, before bed, whenever." },
+        { t:"Placement quiz",         d:"Puck asks a few gentle questions before starting to find the right chapter. No wrong answers, no pressure." },
+        { t:"Progress saves",         d:"Progress saves automatically. Pick up right where you left off, every time." },
+        { t:"Play together",          d:"Works beautifully as a shared experience for younger children. Parent and child, side by side." },
+        { t:"Age-appropriate",        d:"All content celebrates curiosity, kindness, and growth. No ads, no purchases, no accounts." },
+        { t:"Terminal experience",    d:"A terminal is a powerful tool. Learning to read one early is a genuine head start." },
+      ].map(f => (
+        <div style="padding:1.25rem;border:1px solid var(--border);border-radius:8px;background:var(--bg);">
+          <div style="color:var(--gold);font-weight:600;margin-bottom:0.4rem;font-family:'Lora',serif;">{f.t}</div>
+          <p style="color:var(--muted);font-size:0.83rem;margin:0;line-height:1.6;">{f.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ── Install ───────────────────────────────────────────────────────────────── -->
+<section id="install" style="position:relative;z-index:1;padding:6rem 2rem;max-width:680px;margin:0 auto;">
+  <h2 style="font-size:clamp(1.3rem,3vw,1.8rem);color:var(--gold);text-align:center;margin:0 0 0.5rem;font-family:'Lora',serif;">Begin the Adventure</h2>
+  <p style="text-align:center;color:var(--muted);margin:0 0 3rem;font-size:0.9rem;">Python 3.10+ required. Works on Mac, Linux, and Windows.</p>
+
+  <!-- Tab buttons -->
+  <div style="display:flex;margin-bottom:1rem;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+    <button onclick="switchTab('pip')"  id="tab-pip"  style="flex:1;padding:0.65rem 1rem;background:var(--gold);color:#0a1628;border:none;cursor:pointer;font-family:'Lora',serif;font-size:0.9rem;font-weight:700;">pip</button>
+    <button onclick="switchTab('curl')" id="tab-curl" style="flex:1;padding:0.65rem 1rem;background:transparent;color:var(--muted);border:none;border-left:1px solid var(--border);cursor:pointer;font-family:inherit;font-size:0.85rem;">one-liner</button>
+    <button onclick="switchTab('win')"  id="tab-win"  style="flex:1;padding:0.65rem 1rem;background:transparent;color:var(--muted);border:none;border-left:1px solid var(--border);cursor:pointer;font-family:inherit;font-size:0.85rem;">Windows</button>
+  </div>
+
+  <!-- pip panel -->
+  <div id="panel-pip" style="border:1px solid var(--border);border-radius:8px;padding:1.5rem;background:var(--bg-2);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <span style="color:var(--muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Mac / Linux</span>
+      <button onclick="copy('pip install primer','copy-pip')" style="background:var(--bg-3);color:var(--gold);border:1px solid var(--border);padding:0.3rem 0.75rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:inherit;" id="copy-pip">Copy</button>
+    </div>
+    <pre style="margin:0;color:var(--gold);font-size:1rem;font-family:'JetBrains Mono',monospace;">pip install primer</pre>
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+        <span style="color:var(--muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Then run:</span>
+        <button onclick="copy('primer','copy-run')" style="background:var(--bg-3);color:var(--gold);border:1px solid var(--border);padding:0.3rem 0.75rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:inherit;" id="copy-run">Copy</button>
+      </div>
+      <pre style="margin:0;color:#ffffff;font-size:1rem;font-family:'JetBrains Mono',monospace;">primer</pre>
+    </div>
+  </div>
+
+  <!-- curl panel -->
+  <div id="panel-curl" style="display:none;border:1px solid var(--border);border-radius:8px;padding:1.5rem;background:var(--bg-2);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+      <span style="color:var(--muted);font-size:0.78rem;font-family:'JetBrains Mono',monospace;">Mac / Linux</span>
+      <button onclick="copy('curl -fsSL https://raw.githubusercontent.com/thorski1/primer/main/install.sh | bash','copy-curl')" style="background:var(--bg-3);color:var(--gold);border:1px solid var(--border);padding:0.3rem 0.75rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:inherit;" id="copy-curl">Copy</button>
+    </div>
+    <pre style="margin:0;color:var(--gold);font-size:0.8rem;white-space:pre-wrap;word-break:break-all;font-family:'JetBrains Mono',monospace;">curl -fsSL https://raw.githubusercontent.com/thorski1/primer/main/install.sh | bash</pre>
+  </div>
+
+  <!-- Windows panel -->
+  <div id="panel-win" style="display:none;border:1px solid var(--border);border-radius:8px;padding:1.5rem;background:var(--bg-2);">
+    <p style="color:var(--muted);font-size:0.82rem;margin:0 0 0.75rem;font-family:'JetBrains Mono',monospace;">Open PowerShell:</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+      <pre style="margin:0;color:var(--gold);font-size:0.9rem;font-family:'JetBrains Mono',monospace;flex:1;">pip install primer</pre>
+      <button onclick="copy('pip install primer','copy-win')" style="background:var(--bg-3);color:var(--gold);border:1px solid var(--border);padding:0.3rem 0.75rem;border-radius:4px;font-size:0.78rem;cursor:pointer;font-family:inherit;white-space:nowrap;" id="copy-win">Copy</button>
+    </div>
+    <div style="margin-top:1rem;padding:0.75rem;background:var(--bg-3);border-radius:4px;font-size:0.78rem;color:var(--muted);">
+      ⓘ Best experience: <a href="https://aka.ms/terminal" target="_blank" rel="noopener">Windows Terminal</a> (free, Microsoft Store).
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ────────────────────────────────────────────────────────────────── -->
+<footer style="position:relative;z-index:1;padding:2rem;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:0.8rem;">
+  <div style="margin-bottom:0.5rem;">
+    <a href="https://github.com/thorski1/primer" target="_blank" rel="noopener" onclick="track('github_click',{location:'footer'})">GitHub</a>
+    &nbsp;·&nbsp;
+    <a href="https://pypi.org/project/primer/" target="_blank" rel="noopener">PyPI</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/thorski1/quest-engine" target="_blank" rel="noopener">Quest Engine</a>
+  </div>
+  <div>Free and open source. MIT License.</div>
+  <div style="margin-top:0.5rem;font-size:0.72rem;color:#1e3a5f;">
+    Inspired by <em>The Diamond Age</em> by Neal Stephenson.
+  </div>
+</footer>
+
+<script>
+  function switchTab(tab) {
+    ['pip','curl','win'].forEach(t => {
+      const panel = document.getElementById('panel-' + t);
+      const btn   = document.getElementById('tab-' + t);
+      const active = t === tab;
+      panel.style.display   = active ? 'block' : 'none';
+      btn.style.background  = active ? 'var(--gold)' : 'transparent';
+      btn.style.color       = active ? '#0a1628'     : 'var(--muted)';
+      btn.style.fontWeight  = active ? '700'         : '400';
+    });
+    track('install_tab_switch', { tab });
+  }
+
+  function copy(text, btnId) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById(btnId);
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+      track('install_copy', { command: text.startsWith('pip') ? 'pip' : text.startsWith('curl') ? 'curl' : 'win' });
+    });
+  }
+
+  function track(event, props = {}) {
+    if (typeof posthog !== 'undefined') posthog.capture(event, props);
+  }
+</script>
+
+</BaseLayout>

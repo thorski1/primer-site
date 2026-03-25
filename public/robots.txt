@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://youngladysprimer.dev/sitemap-index.xml
